@@ -18,13 +18,15 @@ Analytics.configure(awsconfig);
 Amplify.configure(aws_exports);
 
 let apiName = 'usersAPI';
-let path = '/users';
+let path = '/users/';
 
 class App extends Component {
     constructor(props) {
     super(props);
-    this.user = Auth.currentAuthenticatedUser().then(user => console.log(user.username));
-    console.log(this.user);
+   this.state = {
+       username:{},
+       email: {}
+   }
 
   }
 
@@ -32,7 +34,27 @@ class App extends Component {
 
 
 
-    componentDidMount(){
+    async componentDidMount(){
+
+        // const  newUser = Auth.currentAuthenticatedUser().then(response =>{
+        //     console.log("Cancer",JSON.stringify(response))
+        //     this.setState({
+        //         username: response.username,
+        //         email: response.email
+        //     })
+        // }).catch(error =>{
+        //     console.log(error.response)
+        // });
+        // console.log("Username",this.state.username)
+        // console.log("Email",this.state.email)
+
+        const loggedUser = await Auth.currentAuthenticatedUser();
+        console.log("Hello there",loggedUser);
+        const userEntry = await API.get(apiName,path + loggedUser.username);
+        console.log("This user",JSON.stringify(userEntry));
+
+
+
 
       let newItem = {
           body: {
