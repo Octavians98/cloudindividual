@@ -1,0 +1,138 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "myapp-20181108164424-authRole",
+			"UnauthRoleArn": "arn:aws:iam::735993981720:role/myapp-20181108164424-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::735993981720:role/myapp-20181108164424-authRole",
+			"Region": "eu-west-1",
+			"DeploymentBucketName": "myapp-20181108164424-deployment",
+			"UnauthRoleName": "myapp-20181108164424-unauthRole",
+			"StackName": "myapp-20181108164424",
+			"StackId": "arn:aws:cloudformation:eu-west-1:735993981720:stack/myapp-20181108164424/8c9f77a0-e375-11e8-bed5-50a6863404d2"
+		}
+	},
+	"auth": {
+		"cognito2c7e1f44": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/auth/cognito2c7e1f44-cloudformation-template.yml",
+				"logicalId": "authcognito2c7e1f44"
+			},
+			"lastPushTimeStamp": "2018-11-10T00:42:26.766Z",
+			"output": {
+				"IdentityPoolId": "eu-west-1:0f027ef3-9f62-48cb-882e-3870dc27e826",
+				"IdentityPoolName": "myapp_identitypool_da0bca98",
+				"AppClientSecret": "3d1rin50dpaj343aums4uc9a29gn36n6nr2drlq4nel0e168h80",
+				"UserPoolId": "eu-west-1_xOMS7QVwm",
+				"AppClientIDWeb": "cmiqgrt5ordgpv4uefjsgmotq",
+				"AppClientID": "4ssc39cl4ar3h7ard4088o8dg2",
+				"UserPoolName": "cognito2c7e1f44_userpool_06bdcac3"
+			},
+			"lastPushDirHash": "8YQYEB8PIMJwYOhUWl+mJ0JdZU8=",
+			"[object Object]": {}
+		}
+	},
+	"analytics": {
+		"myapp": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"logicalId": "analyticsmyapp"
+			},
+			"lastPushTimeStamp": "2018-11-10T00:42:26.766Z",
+			"output": {
+				"appName": "myapp",
+				"Region": "us-east-1",
+				"Id": "beca5c6b34b743c5b795a4896dfd6bf3"
+			},
+			"lastPushDirHash": "gWDDFwhVlgGdG9tCjKW6gSp/c+U="
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2018-11-10T00:42:26.767Z",
+			"output": {
+				"S3BucketSecureURL": "https://myapp-20181108165202--hostingbucket.s3.amazonaws.com",
+				"WebsiteURL": "http://myapp-20181108165202--hostingbucket.s3-website-eu-west-1.amazonaws.com",
+				"Region": "eu-west-1",
+				"HostingBucketName": "myapp-20181108165202--hostingbucket"
+			},
+			"lastPushDirHash": "asv4Zxu3vZJJGN6S1EuYQ+aMjsI="
+		}
+	},
+	"storage": {
+		"Users": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/Users-cloudformation-template.json",
+				"logicalId": "storageUsers"
+			},
+			"lastPushTimeStamp": "2018-11-10T00:42:26.768Z",
+			"output": {
+				"PartitionKeyName": "username",
+				"Region": "eu-west-1",
+				"Arn": "arn:aws:dynamodb:eu-west-1:735993981720:table/Users",
+				"PartitionKeyType": "S",
+				"Name": "Users"
+			},
+			"lastPushDirHash": "X8ztPIQwGi4cXizNx+XcN0r+D2o="
+		}
+	},
+	"function": {
+		"usersAPICall": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [],
+			"lastBuildTimeStamp": "2018-11-09T18:40:24.189Z",
+			"lastPackageTimeStamp": "2018-11-10T00:41:20.077Z",
+			"distZipFilename": "usersAPICall-1541810477-latest-build.zip",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/function/usersAPICall-cloudformation-template.json",
+				"logicalId": "functionusersAPICall"
+			},
+			"lastPushTimeStamp": "2018-11-10T00:42:26.769Z",
+			"output": {
+				"Region": "eu-west-1",
+				"Arn": "arn:aws:lambda:eu-west-1:735993981720:function:usersAPICall",
+				"Name": "usersAPICall"
+			},
+			"lastPushDirHash": "SYbnDkfI1LUH0cKGJg559EBPCPM="
+		}
+	},
+	"api": {
+		"usersAPI": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "usersAPICall",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/api/usersAPI-cloudformation-template.json",
+				"logicalId": "apiusersAPI"
+			},
+			"lastPushTimeStamp": "2018-11-10T00:42:26.768Z",
+			"output": {
+				"ApiName": "usersAPI",
+				"RootUrl": "https://of93ldnuif.execute-api.eu-west-1.amazonaws.com/Prod"
+			},
+			"lastPushDirHash": "/I9px9R0RDwA+IsFb3Bh+HpC0io="
+		}
+	}
+}

@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/users",
+            "lambdaFunction": "usersAPICall",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        }
+    ],
+    "resourceName": "usersAPI",
+    "apiName": "myapp9c00f4c7",
+    "functionArns": [
+        {
+            "lambdaFunction": "usersAPICall"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "myapp-20181108164424-authRole",
+        "unAuthRoleName": "myapp-20181108164424-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "usersAPICall",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
