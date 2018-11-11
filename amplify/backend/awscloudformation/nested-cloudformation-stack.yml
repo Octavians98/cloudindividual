@@ -155,9 +155,9 @@
 		"storageUsers": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/Users-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/UsersView-cloudformation-template.json",
 				"Parameters": {
-					"tableName": "Users",
+					"tableName": "UsersView",
 					"partitionKeyName": "username",
 					"partitionKeyType": "S"
 				}

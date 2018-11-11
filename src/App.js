@@ -3,14 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import Auth from '@aws-amplify/auth';
 import Analytics from '@aws-amplify/analytics';
-// import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 import Amplify, { API } from 'aws-amplify';
-
-
 import awsconfig from './aws-exports';
-
+import {Route, Switch, Link} from 'react-router-dom'
+import UsersView from './UsersView';
 // retrieve temporary AWS credentials and sign requests
 Auth.configure(awsconfig);
 // send analytics events to Amazon Pinpoint
@@ -29,23 +27,7 @@ class App extends Component {
 
   }
 
-
-
-
-
     async componentDidMount(){
-
-        // const  newUser = Auth.currentAuthenticatedUser().then(response =>{
-        //     console.log("Cancer",JSON.stringify(response))
-        //     this.setState({
-        //         username: response.username,
-        //         email: response.email
-        //     })
-        // }).catch(error =>{
-        //     console.log(error.response)
-        // });
-        // console.log("Username",this.state.username)
-        // console.log("Email",this.state.email)
 
         const loggedUser = await Auth.currentAuthenticatedUser();
         console.log("Hello there",loggedUser);
@@ -63,9 +45,6 @@ class App extends Component {
                             phone: loggedUser.attributes.phone_number,
                             name: name,
                             surname: surname
-
-
-
                         }
                     });
                 }
@@ -84,23 +63,6 @@ class App extends Component {
             });
         }
 
-
-     //
-     //  let newItem = {
-     //      body: {
-     //          username: "jesus",
-     //          text: "Samba crucea"
-     //
-     //
-     //      }
-     // }
-     //
-     // API.post(apiName, path, newItem).then(response => {
-     //     console.log(response);
-     // }).catch(error => {
-     //     console.log(error.response)
-     // });
-
         console.log("Current user" + JSON.stringify(this.state.user));
     }
 
@@ -110,23 +72,21 @@ class App extends Component {
 
     }
 
-
-
-
-
   render() {
+        const Users = () => (
+            <Switch>
+                <Route exact path = '/users' component = {UsersView}/>
+            </Switch>
+        )
     return (
       <div className="App">
-          <button onClick={this.testThisShit}> Muie</button>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+      <UsersView>
+
+      </UsersView>
 
       </div>
     );
   }
 }
-
 
 export default withAuthenticator(App, true);
