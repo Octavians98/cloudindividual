@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/auth/cognito2c7e1f44-cloudformation-template.yml",
 				"logicalId": "authcognito2c7e1f44"
 			},
-			"lastPushTimeStamp": "2018-11-10T00:42:26.766Z",
+			"lastPushTimeStamp": "2018-11-11T15:13:10.379Z",
 			"output": {
 				"IdentityPoolId": "eu-west-1:0f027ef3-9f62-48cb-882e-3870dc27e826",
 				"IdentityPoolName": "myapp_identitypool_da0bca98",
@@ -41,7 +41,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
 				"logicalId": "analyticsmyapp"
 			},
-			"lastPushTimeStamp": "2018-11-10T00:42:26.766Z",
+			"lastPushTimeStamp": "2018-11-11T15:13:10.379Z",
 			"output": {
 				"appName": "myapp",
 				"Region": "us-east-1",
@@ -58,7 +58,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/hosting/template.json",
 				"logicalId": "hostingS3AndCloudFront"
 			},
-			"lastPushTimeStamp": "2018-11-10T00:42:26.767Z",
+			"lastPushTimeStamp": "2018-11-11T15:13:10.380Z",
 			"output": {
 				"S3BucketSecureURL": "https://myapp-20181108165202--hostingbucket.s3.amazonaws.com",
 				"WebsiteURL": "http://myapp-20181108165202--hostingbucket.s3-website-eu-west-1.amazonaws.com",
@@ -76,7 +76,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/Users-cloudformation-template.json",
 				"logicalId": "storageUsers"
 			},
-			"lastPushTimeStamp": "2018-11-10T00:42:26.768Z",
+			"lastPushTimeStamp": "2018-11-11T15:13:10.380Z",
 			"output": {
 				"PartitionKeyName": "username",
 				"Region": "eu-west-1",
@@ -85,6 +85,23 @@
 				"Name": "Users"
 			},
 			"lastPushDirHash": "X8ztPIQwGi4cXizNx+XcN0r+D2o="
+		},
+		"Projects": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/Projects-cloudformation-template.json",
+				"logicalId": "storageProjects"
+			},
+			"lastPushTimeStamp": "2018-11-11T15:13:10.431Z",
+			"output": {
+				"PartitionKeyName": "name",
+				"Region": "eu-west-1",
+				"Arn": "arn:aws:dynamodb:eu-west-1:735993981720:table/Projects",
+				"PartitionKeyType": "S",
+				"Name": "Projects"
+			},
+			"lastPushDirHash": "dgVLdNNoFYo0IjHSFYdSEisaX70="
 		}
 	},
 	"function": {
@@ -100,13 +117,42 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/function/usersAPICall-cloudformation-template.json",
 				"logicalId": "functionusersAPICall"
 			},
-			"lastPushTimeStamp": "2018-11-10T00:42:26.769Z",
+			"lastPushTimeStamp": "2018-11-11T15:13:10.381Z",
 			"output": {
 				"Region": "eu-west-1",
 				"Arn": "arn:aws:lambda:eu-west-1:735993981720:function:usersAPICall",
 				"Name": "usersAPICall"
 			},
 			"lastPushDirHash": "SYbnDkfI1LUH0cKGJg559EBPCPM="
+		},
+		"projectsAPICall": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "Projects",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"lastBuildTimeStamp": "2018-11-11T15:10:26.957Z",
+			"lastPackageTimeStamp": "2018-11-11T15:10:30.073Z",
+			"distZipFilename": "projectsAPICall-1541949026-latest-build.zip",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/function/projectsAPICall-cloudformation-template.json",
+				"logicalId": "functionprojectsAPICall"
+			},
+			"lastPushTimeStamp": "2018-11-11T15:13:10.431Z",
+			"output": {
+				"Region": "eu-west-1",
+				"Arn": "arn:aws:lambda:eu-west-1:735993981720:function:projectsAPICall",
+				"Name": "projectsAPICall"
+			},
+			"lastPushDirHash": "D3SYtao0t+gg0WCk5phdtTIx6Bg="
 		}
 	},
 	"api": {
@@ -127,12 +173,36 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/api/usersAPI-cloudformation-template.json",
 				"logicalId": "apiusersAPI"
 			},
-			"lastPushTimeStamp": "2018-11-10T00:42:26.768Z",
+			"lastPushTimeStamp": "2018-11-11T15:13:10.382Z",
 			"output": {
 				"ApiName": "usersAPI",
 				"RootUrl": "https://of93ldnuif.execute-api.eu-west-1.amazonaws.com/Prod"
 			},
 			"lastPushDirHash": "/I9px9R0RDwA+IsFb3Bh+HpC0io="
+		},
+		"projectsAPI": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "projectsAPICall",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/api/projectsAPI-cloudformation-template.json",
+				"logicalId": "apiprojectsAPI"
+			},
+			"lastPushTimeStamp": "2018-11-11T15:13:10.431Z",
+			"output": {
+				"ApiName": "projectsAPI",
+				"RootUrl": "https://tr3ntd4v73.execute-api.eu-west-1.amazonaws.com/Prod"
+			},
+			"lastPushDirHash": "NUglfjAuNTZ2Rwqv+3u1kpFS6Tc="
 		}
 	}
 }

@@ -16,12 +16,21 @@ const awsmobile =  {
         {
             "tableName": "Users",
             "region": "eu-west-1"
+        },
+        {
+            "tableName": "Projects",
+            "region": "eu-west-1"
         }
     ],
     "aws_cloud_logic_custom": [
         {
             "name": "usersAPI",
             "endpoint": "https://of93ldnuif.execute-api.eu-west-1.amazonaws.com/Prod",
+            "region": "eu-west-1"
+        },
+        {
+            "name": "projectsAPI",
+            "endpoint": "https://tr3ntd4v73.execute-api.eu-west-1.amazonaws.com/Prod",
             "region": "eu-west-1"
         }
     ]

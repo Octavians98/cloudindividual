@@ -155,10 +155,21 @@
 		"storageUsers": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/UsersView-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/Users-cloudformation-template.json",
 				"Parameters": {
-					"tableName": "UsersView",
+					"tableName": "Users",
 					"partitionKeyName": "username",
+					"partitionKeyType": "S"
+				}
+			}
+		},
+		"storageProjects": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/storage/Projects-cloudformation-template.json",
+				"Parameters": {
+					"tableName": "Projects",
+					"partitionKeyName": "name",
 					"partitionKeyType": "S"
 				}
 			}
@@ -168,6 +179,26 @@
 			"Properties": {
 				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/function/usersAPICall-cloudformation-template.json",
 				"Parameters": {}
+			}
+		},
+		"functionprojectsAPICall": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/function/projectsAPICall-cloudformation-template.json",
+				"Parameters": {
+					"storageProjectsName": {
+						"Fn::GetAtt": [
+							"storageProjects",
+							"Outputs.Name"
+						]
+					},
+					"storageProjectsArn": {
+						"Fn::GetAtt": [
+							"storageProjects",
+							"Outputs.Arn"
+						]
+					}
+				}
 			}
 		},
 		"apiusersAPI": {
@@ -184,6 +215,26 @@
 					"functionusersAPICallArn": {
 						"Fn::GetAtt": [
 							"functionusersAPICall",
+							"Outputs.Arn"
+						]
+					}
+				}
+			}
+		},
+		"apiprojectsAPI": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/myapp-20181108164424-deployment/amplify-cfn-templates/api/projectsAPI-cloudformation-template.json",
+				"Parameters": {
+					"functionprojectsAPICallName": {
+						"Fn::GetAtt": [
+							"functionprojectsAPICall",
+							"Outputs.Name"
+						]
+					},
+					"functionprojectsAPICallArn": {
+						"Fn::GetAtt": [
+							"functionprojectsAPICall",
 							"Outputs.Arn"
 						]
 					}
