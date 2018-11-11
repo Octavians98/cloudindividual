@@ -24,9 +24,8 @@ class App extends Component {
     constructor(props) {
     super(props);
    this.state = {
-       username:{},
-       email: {}
-   }
+       user :{}
+   };
 
   }
 
@@ -52,24 +51,57 @@ class App extends Component {
         console.log("Hello there",loggedUser);
         const userEntry = await API.get(apiName,path + loggedUser.username);
         console.log("This user",JSON.stringify(userEntry));
+        if (!userEntry.hasOwnProperty('username')){
+            while(!this.state.user.hasOwnProperty('username')){
+                const name = prompt('Please provide your name and surname on your first login');
+                const surname = prompt('Surname');
+                if(name !== null){
+                    this.setState({
+                        user: {
+                            username: loggedUser.username,
+                            email: loggedUser.attributes.email,
+                            phone: loggedUser.attributes.phone_number,
+                            name: name,
+                            surname: surname
 
 
 
+                        }
+                    });
+                }
+            }
+            const post = await API.post(apiName,path,{
+                body:this.state.user
+            });
 
-      let newItem = {
-          body: {
-              username: "jesus",
-              text: "Samba crucea"
+
+            console.log("User updated",JSON.stringify(post));
+
+        }else
+        {
+            this.setState({
+                user:userEntry
+            });
+        }
 
 
-          }
-     }
+     //
+     //  let newItem = {
+     //      body: {
+     //          username: "jesus",
+     //          text: "Samba crucea"
+     //
+     //
+     //      }
+     // }
+     //
+     // API.post(apiName, path, newItem).then(response => {
+     //     console.log(response);
+     // }).catch(error => {
+     //     console.log(error.response)
+     // });
 
-     API.post(apiName, path, newItem).then(response => {
-         console.log(response);
-     }).catch(error => {
-         console.log(error.response)
-     });
+        console.log("Current user" + JSON.stringify(this.state.user));
     }
 
     testThisShit = async () => {
