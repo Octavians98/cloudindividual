@@ -11,7 +11,7 @@ let path = '/users/';
 class UsersView extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             userList: [],
             sortedList: [],

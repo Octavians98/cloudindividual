@@ -9,7 +9,10 @@ import Amplify, { API } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import {Route, Switch, Link} from 'react-router-dom'
 import UsersView from './UsersView';
+import User from './User';
 import ProjectsView from './ProjectsView'
+import {Container, Card,Input} from "semantic-ui-react";
+import { Button } from 'semantic-ui-react'
 // retrieve temporary AWS credentials and sign requests
 Auth.configure(awsconfig);
 // send analytics events to Amazon Pinpoint
@@ -19,16 +22,16 @@ Amplify.configure(aws_exports);
 let apiName = 'usersAPI';
 let path = '/users/';
 let projectAPI = 'projectsAPI';
-let projectPath = '/projects'
+let projectPath = '/projects/'
 let myInit = {
     body: {
-            name: 'test3',
-            managerID:'mario,the terrorist',
-            managerName:"name",
-            managerSurname:"surname",
-            description: 'testing if the API works with external body',
-            contributors: ['a','b','c'],
-            status: 'finished'
+            name: 'Windows',
+            managerID:'fast as fight',
+            managerName:"noname",
+            managerSurname:"nosurname",
+            description: 'best description eva',
+            contributors: ['cool','cooler','coolest'],
+            status: 'pending'
 
     }
 }
@@ -43,6 +46,8 @@ class App extends Component {
   }
 
     async componentDidMount(){
+
+
 
         const loggedUser = await Auth.currentAuthenticatedUser();
         console.log("Hello there",loggedUser);
@@ -86,24 +91,35 @@ class App extends Component {
     }
 
     testThisGet = async () => {
-        const response = await API.get(projectAPI,projectPath);
+        const response = await API.get(projectAPI,projectPath+"test");
         console.log(response);
 
     }
 
   render() {
+
         const Users = () => (
             <Switch>
-                <Route exact path = '/users' component = {UsersView}/>
+                <Route exact path='/users' component={UsersView}/>
+                <Route path='/users/:username' render={(props) => <User {...props} user={this.state.username}/>}/>
             </Switch>
         )
+
+
+
     return (
       <div className="App">
-          <button onClick={this.testThisGet}>Press me</button>
-      {/*<UsersView>*/}
 
-      {/*</UsersView>*/}
-          <ProjectsView/>
+          <Switch>
+              <Route path = "/users" component = {Users}></Route>
+              <Route path = "/projects" component = {ProjectsView}></Route>
+          </Switch>
+
+          <br></br>
+          <Button color={"orange"} onClick={this.testThisGet}>Press me</Button>
+
+
+
 
       </div>
     );
