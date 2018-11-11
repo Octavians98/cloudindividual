@@ -9,6 +9,7 @@ import Amplify, { API } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import {Route, Switch, Link} from 'react-router-dom'
 import UsersView from './UsersView';
+import ProjectsView from './ProjectsView'
 // retrieve temporary AWS credentials and sign requests
 Auth.configure(awsconfig);
 // send analytics events to Amazon Pinpoint
@@ -21,8 +22,10 @@ let projectAPI = 'projectsAPI';
 let projectPath = '/projects'
 let myInit = {
     body: {
-            name: 'test2',
-            manager:'mario,the terrorist',
+            name: 'test3',
+            managerID:'mario,the terrorist',
+            managerName:"name",
+            managerSurname:"surname",
             description: 'testing if the API works with external body',
             contributors: ['a','b','c'],
             status: 'finished'
@@ -97,9 +100,10 @@ class App extends Component {
     return (
       <div className="App">
           <button onClick={this.testThisGet}>Press me</button>
-      <UsersView>
+      {/*<UsersView>*/}
 
-      </UsersView>
+      {/*</UsersView>*/}
+          <ProjectsView/>
 
       </div>
     );

@@ -42,10 +42,10 @@ class UsersView extends Component {
         this.setState({
                 sortedList: this.state.userList.filter(user => {
 
-                    console.log("Username",user.username);
-                    console.log("Name",user.name);
-                    console.log("Surname",user.surname);
-                    console.log("Email",user.email);
+                    // console.log("Username",user.username);
+                    // console.log("Name",user.name);
+                    // console.log("Surname",user.surname);
+                    // console.log("Email",user.email);
 
 
 
