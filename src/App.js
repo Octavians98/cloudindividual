@@ -17,6 +17,18 @@ Amplify.configure(aws_exports);
 
 let apiName = 'usersAPI';
 let path = '/users/';
+let projectAPI = 'projectsAPI';
+let projectPath = '/projects'
+let myInit = {
+    body: {
+            name: 'test2',
+            manager:'mario,the terrorist',
+            description: 'testing if the API works with external body',
+            contributors: ['a','b','c'],
+            status: 'finished'
+
+    }
+}
 
 class App extends Component {
     constructor(props) {
@@ -33,6 +45,10 @@ class App extends Component {
         console.log("Hello there",loggedUser);
         const userEntry = await API.get(apiName,path + loggedUser.username);
         console.log("This user",JSON.stringify(userEntry));
+
+        const projectPost =API.post(projectAPI,projectPath,myInit);
+        console.log("Project post", JSON.stringify(projectPost));
+
         if (!userEntry.hasOwnProperty('username')){
             while(!this.state.user.hasOwnProperty('username')){
                 const name = prompt('Please provide your name and surname on your first login');
@@ -66,8 +82,8 @@ class App extends Component {
         console.log("Current user" + JSON.stringify(this.state.user));
     }
 
-    testThisShit = async () => {
-        const response = await API.get(apiName, path );
+    testThisGet = async () => {
+        const response = await API.get(projectAPI,projectPath);
         console.log(response);
 
     }
@@ -80,6 +96,7 @@ class App extends Component {
         )
     return (
       <div className="App">
+          <button onClick={this.testThisGet}>Press me</button>
       <UsersView>
 
       </UsersView>
