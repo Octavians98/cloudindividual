@@ -11,6 +11,7 @@ import {Route, Switch, Link} from 'react-router-dom'
 import UsersView from './UsersView';
 import User from './User';
 import ProjectsView from './ProjectsView'
+import Project from './Project'
 import {Container, Card,Input} from "semantic-ui-react";
 import { Button } from 'semantic-ui-react'
 // retrieve temporary AWS credentials and sign requests
@@ -105,6 +106,13 @@ class App extends Component {
             </Switch>
         )
 
+      const Projects = () => (
+          <Switch>
+              <Route exact path='/projects' component={ProjectsView}/>
+              <Route path='/projects/:name' render={(props) => <Project {...props} user={this.state.username}/>}/>
+          </Switch>
+      )
+
 
 
     return (
@@ -112,7 +120,7 @@ class App extends Component {
 
           <Switch>
               <Route path = "/users" component = {Users}></Route>
-              <Route path = "/projects" component = {ProjectsView}></Route>
+              <Route path = "/projects" component = {Projects}></Route>
           </Switch>
 
           <br></br>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {API, Auth} from 'aws-amplify';
+
 
 
 class UserPannel extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Amplify, { API } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import {Link} from "react-router-dom";
 import {Container, Card,Input} from "semantic-ui-react";
 
