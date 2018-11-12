@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { API } from 'aws-amplify';
 import {Link} from "react-router-dom";
-import {Container, Card,Input} from "semantic-ui-react";
+import {Container,Input,Table, Button} from "semantic-ui-react";
 
 
 let apiName = 'usersAPI';
@@ -41,14 +41,6 @@ class UsersView extends Component {
         });
         this.setState({
                 sortedList: this.state.userList.filter(user => {
-
-                    // console.log("Username",user.username);
-                    // console.log("Name",user.name);
-                    // console.log("Surname",user.surname);
-                    // console.log("Email",user.email);
-
-
-
                     return user.username.includes(event.target.value)||
                         user.name.includes(event.target.value) ||
                         user.surname.includes(event.target.value) ||
@@ -69,18 +61,30 @@ class UsersView extends Component {
                 <h2>Users</h2>
 
                 <Container>
-                    <Card.Group>
-                        {this.state.sortedList.map(user => (
-                            <Card key={user.username}>
-                                <Card.Content textAlign = 'left'>
-                                    <Card.Header><Link to={'/users/'+user.username}>{user.name} {user.surname}</Link></Card.Header>
-                                    <Card.Meta>{user.username}</Card.Meta>
-                                    <Card.Description>{user.email}</Card.Description>
-                                </Card.Content>
 
-                            </Card>
-                        ))}
-                    </Card.Group>
+                    <Table striped>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Name</Table.HeaderCell>
+                            <Table.HeaderCell>Surname</Table.HeaderCell>
+                            <Table.HeaderCell>Username</Table.HeaderCell>
+                            <Table.HeaderCell>Email</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    {this.state.sortedList.map(user =>(
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell><Link to={'/users/'+user.username}>{user.name}</Link></Table.Cell>
+                                <Table.Cell>{user.surname}</Table.Cell>
+                                <Table.Cell>{user.username}</Table.Cell>
+                                <Table.Cell>{user.email}</Table.Cell>
+
+                            </Table.Row>
+                        </Table.Body>
+
+                                ))}
+                        </Table>
+
                 </Container>
 
 

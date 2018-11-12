@@ -23,11 +23,12 @@ class PersonalUser extends Component {
         });
         if(this.props.user.hasOwnProperty('skills')){
             this.setState({
-                skills:this.props.skills
+                skills:this.props.user.skills,
             });
 
 
         }
+        console.log("Skiluri",this.props.user.skills)
     }
 
     updatePhone = (event) => {
@@ -76,7 +77,7 @@ class PersonalUser extends Component {
 
     checkSkills = () => {
         if(this.props.user.hasOwnProperty('skills')){
-            if(this.props.skills.length < this.state.skills.length){
+            if(this.props.user.skills.length < this.state.skills.length){
                 return true;
             } else {return false;}
 
@@ -87,11 +88,12 @@ class PersonalUser extends Component {
         }
     }
 
+
     save = async () => {
         if(this.checkNewPhone()){
             const phone = this.checkPhone();
-            const skills = this.checkSkills();
-            if(phone || skills) {
+             const skills = this.checkSkills();
+            if(phone || skills ) {
                 const apiCall = API.put(apiName,path,{
                     body : {
                         username: this.props.user.username,
@@ -111,37 +113,50 @@ class PersonalUser extends Component {
 
     render()
     {
+        var style = {
+
+            fontSize: 30,
+
+        };
 
         const user = this.props.user;
-        return(<div style={{padding:'15px'}} align="left">
-            <h1>User Details</h1>
+        return(
+            <div>
+                <h1>User Details</h1>
+            <div style={style} align="left">
+
 
             <h2>Name: {user.name}</h2>
             <h2>Surname: {user.surname}</h2>
             <h2>Username: {user.username}</h2>
             <h2>Email: {user.email}</h2>
-            <h2>Phone: <Input size='mini' placeholder={user.phone} onChange={this.updatePhone}/></h2>
+            <h2>Phone: <Input size='tiny' placeholder='update phone...' onChange={this.updatePhone}/></h2>
 
             <h2>Skills: </h2>
 
-            {(this.state.skills.length > 0) ?
+            {(this.state.skills !== undefined && this.state.skills.length >0) ?
                 <div>
-                    <List bulleted>
+                    <List >
                         {this.state.skills.map(skill => (
                             <List.Item><h3>{skill}</h3></List.Item>
                         ))}
                     </List>
                 </div> :
 
-                <h3>No skills added yet</h3>
+                <p>No skills added yet</p>
             }
-            <Input
-                placeholder='add skill...'
-                onChange={this.updateSkills}
-            />
-            <Button onClick={this.addSkill}>Add Skill</Button>
-            <Button onClick={this.save}>Save Changes</Button>
-        </div>)
+                <Input size='mini'
+                       placeholder='add skill...'
+                       onChange={this.updateSkills}
+                />
+                <Button onClick={this.addSkill}>Add Skill</Button>
+        </div>
+
+
+                <Button size='huge' onClick={this.save}>Save Changes</Button>
+        </div>
+
+        )
 
 
 

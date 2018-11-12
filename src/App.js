@@ -10,6 +10,7 @@ import awsconfig from './aws-exports';
 import {Route, Switch, Link} from 'react-router-dom'
 import UsersView from './UsersView';
 import User from './User';
+import UserPannel from './UserPannel'
 import ProjectsView from './ProjectsView'
 import Project from './Project'
 import {Container, Card,Input} from "semantic-ui-react";
@@ -26,8 +27,8 @@ let projectAPI = 'projectsAPI';
 let projectPath = '/projects/'
 let myInit = {
     body: {
-            name: 'Windows',
-            managerID:'fast as fight',
+            name: 'Project test',
+            managerID:'Eminem',
             managerName:"noname",
             managerSurname:"nosurname",
             description: 'best description eva',
@@ -99,17 +100,18 @@ class App extends Component {
 
   render() {
 
+
         const Users = () => (
             <Switch>
                 <Route exact path='/users' component={UsersView}/>
-                <Route path='/users/:id' render={(props) => <User {...props} user={this.state.username}/>}/>
+                <Route path='/users/:username' render={(props) => <User {...props} user={this.state.username}/>}/>
             </Switch>
         )
 
       const Projects = () => (
           <Switch>
               <Route exact path='/projects' component={ProjectsView}/>
-              <Route path='/projects/:name' render={(props) => <Project {...props} user={this.state.username}/>}/>
+              <Route path='/projects/:username' render={(props) => <Project {...props} user={this.state.username}/>}/>
           </Switch>
       )
 
@@ -122,13 +124,6 @@ class App extends Component {
               <Route path = "/users" component = {Users}></Route>
               <Route path = "/projects" component = {Projects}></Route>
           </Switch>
-
-          <br></br>
-          <Button color={"orange"} onClick={this.testThisGet}>Press me</Button>
-
-
-
-
       </div>
     );
   }

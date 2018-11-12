@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {API} from 'aws-amplify';
 import ProjectPannel from './ProjectPannel';
+import PersonalProject  from  './PersonalProject'
 
 
 let apiName = 'projectsAPI';
@@ -25,9 +26,21 @@ class Project extends Component {
 
     render() {
         return(
-            <div>
 
-                <ProjectPannel project={this.state.project}/>
+            <div>
+                {this.state.project === '{}' ?
+
+                    <h1>No such project</h1>:
+
+                    <div>
+                        {this.state.project.managerID === this.props.user ?
+
+                            <PersonalProject project={this.state.project}/> :
+
+                            <ProjectPannel project={this.state.project} user={this.props.user}/>
+                        }
+                    </div>
+                }
             </div>
         )
     }

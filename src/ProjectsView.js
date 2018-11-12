@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Amplify, { API } from 'aws-amplify';
 import {Link} from "react-router-dom";
 import Auth from '@aws-amplify/auth';
-import {Container, Card,Input} from "semantic-ui-react";
+import {Container, Table,Input} from "semantic-ui-react";
 import { Button } from 'semantic-ui-react'
 
 let apiName = 'projectsAPI';
@@ -89,24 +89,30 @@ class ProjectsView extends Component {
                 <h2>Projects</h2>
 
                 <Container>
-                    <Card.Group>
-                        {this.state.sortedList.map(project => (
-                            <Card key={project.name}>
-                                <Card.Content textAlign = 'left'>
-                                    <Card.Header><Link to={'/projects/'+project.name}>{project.name}</Link></Card.Header>
-                                    <Card.Meta>{project.contributors}</Card.Meta>
-                                    <Card.Meta>{project.description}</Card.Meta>
-                                    <Card.Meta>{project.status}</Card.Meta>
-                                    <Card.Meta>{project.managerName}</Card.Meta>
-                                    <Card.Meta>{project.managerSurname}</Card.Meta>
-                                    <Card.Meta>{project.managerID}</Card.Meta>
+                    <Table striped>
+
+                        <Table.Header>
+                            <Table.Row>
+                            <Table.HeaderCell>Name</Table.HeaderCell>
+                            <Table.HeaderCell>Status</Table.HeaderCell>
+                            <Table.HeaderCell>Manager name</Table.HeaderCell>
+                            <Table.HeaderCell>Manager surname</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        {this.state.sortedList.map(project =>(
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Cell><Link to={'/projects/'+project.name}>{project.name}</Link></Table.Cell>
+                                    <Table.Cell>{project.status}</Table.Cell>
+                                    <Table.Cell>{project.managerName}</Table.Cell>
+                                    <Table.Cell>{project.managerSurname}</Table.Cell>
 
 
-                                </Card.Content>
-                                <Button color={"orange"} onClick={this.joinProject}>View Details</Button>
-                            </Card>
+                                </Table.Row>
+                            </Table.Body>
                         ))}
-                    </Card.Group>
+
+                    </Table>
                 </Container>
 
 
