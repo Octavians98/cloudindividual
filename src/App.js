@@ -102,7 +102,7 @@ class App extends Component {
         const Users = () => (
             <Switch>
                 <Route exact path='/users' component={UsersView}/>
-                <Route path='/users/:username' render={(props) => <User {...props} user={this.state.username}/>}/>
+                <Route path='/users/:id' render={(props) => <User {...props} user={this.state.username}/>}/>
             </Switch>
         )
 
