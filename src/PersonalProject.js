@@ -3,8 +3,11 @@ import {API} from 'aws-amplify';
 import {Link} from "react-router-dom";
 import {Divider, List, Input, Button} from "semantic-ui-react";
 
+let userAPI = 'usersAPI';
+let path = '/users/'
 let projectAPI = 'projectsAPI';
-let projectPath = '/projects/'
+let projectPath = '/projects/';
+
 
 class PersonalProject extends Component {
     constructor(props) {
@@ -37,17 +40,23 @@ class PersonalProject extends Component {
         if(this.state.newContributor === ''){
             alert('The input field is empty')
         } else if (this.state.contributors.includes(this.state.newContributor)){
+
             alert('This contributor is already added')
         } else {
-            const user = await API.get(projectAPI, projectPath, + this.state.newContributor);
+            const user = await API.get(userAPI, path + this.state.newContributor);
+
             if(user.hasOwnProperty('username')){
                 this.setState({
                     contributors: [...this.state.contributors, this.state.newContributor]
                 })
-            } else {
-                alert('This developer doesn`t exists')
+
+            }
+            else {
+                alert('This developer is not registered')
             }
         }
+
+
     }
 
     checkStatus = () => {
@@ -62,8 +71,8 @@ class PersonalProject extends Component {
             const apiCall = API.put(projectAPI,projectPath,{
                 body: {
                     name: this.props.project.name,
-                    description: this.props.description,
                     contributors:this.state.contributors,
+                    description: this.props.description,
                     managerID: this.props.project.managerID,
                     managerName: this.props.project.managerName,
                     managerSurname: this.props.project.managerID,
@@ -86,6 +95,7 @@ class PersonalProject extends Component {
                     <Divider/>
                     <h2>Title: {project.name}</h2>
                     <h2>Manager name: <Link to={'/users/' + project.managerID}>{project.managerName} {project.managerSurname}</Link></h2>
+                    <h2>Manager username: <Link to={'/users/' + project.managerID}>{project.managerID}</Link></h2>
                     <h2>Status: <Input size='mini' placeholder={project.status} onChange={this.updateStatus}/></h2>
                     <h2>Contributors: </h2>
                     <Divider/>

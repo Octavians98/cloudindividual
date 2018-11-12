@@ -52,12 +52,12 @@ class App extends Component {
 
 
         const loggedUser = await Auth.currentAuthenticatedUser();
-        console.log("Hello there",loggedUser);
+        // console.log("Hello there",loggedUser);
         const userEntry = await API.get(apiName,path + loggedUser.username);
-        console.log("This user",JSON.stringify(userEntry));
+        // console.log("This user",JSON.stringify(userEntry));
 
-        const projectPost =API.post(projectAPI,projectPath,myInit);
-        console.log("Project post", JSON.stringify(projectPost));
+        // const projectPost =API.post(projectAPI,projectPath,myInit);
+        // console.log("Project post", JSON.stringify(projectPost));
 
         if (!userEntry.hasOwnProperty('username')){
             while(!this.state.user.hasOwnProperty('username')){
@@ -80,7 +80,7 @@ class App extends Component {
             });
 
 
-            console.log("User updated",JSON.stringify(post));
+            // console.log("User updated",JSON.stringify(post));
 
         }else
         {
@@ -89,12 +89,12 @@ class App extends Component {
             });
         }
 
-        console.log("Current user" + JSON.stringify(this.state.user));
+        // console.log("Current user" + JSON.stringify(this.state.user));
     }
 
     testThisGet = async () => {
         const response = await API.get(projectAPI,projectPath+"test");
-        console.log(response);
+        // console.log(response);
 
     }
 

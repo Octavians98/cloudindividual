@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {API} from 'aws-amplify';
 import ProjectPannel from './ProjectPannel';
-import PersonalProject  from  './PersonalProject'
+import PersonalProject  from  './PersonalProject';
+import Auth from '@aws-amplify/auth';
 
 
 let apiName = 'projectsAPI';
@@ -12,19 +13,28 @@ class Project extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            project: {}
+            project: {},
+
         };
     }
 
     async componentDidMount() {
-        const response = await API.get(apiName,path + this.props.match.params.name);
-        console.log("WTF IS HAPPENING IN THE PROJECTS", response);
+        const manager = await Auth.currentAuthenticatedUser();
+
+        this.setState({projectManager:manager.username})
+
+
+        const response = await API.get(apiName,path + this.props.match.params.username);
+        // console.log("WTF IS HAPPENING IN THE PROJECTS", response);
         if(response !== {}){
-            this.setState({project:response});
+            this.setState({project:response
+            });
         }
+        // console.log("This project manger",this.state.project)
     }
 
     render() {
+        // console.log("Testerino",this.props.match.params)
         return(
 
             <div>
@@ -33,7 +43,7 @@ class Project extends Component {
                     <h1>No such project</h1>:
 
                     <div>
-                        {this.state.project.managerID === this.props.user ?
+                        {this.state.project.managerID === this.state.projectManager ?
 
                             <PersonalProject project={this.state.project}/> :
 
