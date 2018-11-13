@@ -62,7 +62,7 @@ class UsersView extends Component {
 
                 <Container>
 
-                    <Table striped>
+                    <Table celled inverted>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Name</Table.HeaderCell>

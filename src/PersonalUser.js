@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {API, Auth} from 'aws-amplify';
-import {Input, List, Button} from "semantic-ui-react";
+import {Input, List, Button, Label} from "semantic-ui-react";
 
 
 let apiName = 'usersAPI';
@@ -121,39 +121,59 @@ class PersonalUser extends Component {
 
         const user = this.props.user;
         return(
-            <div>
-                <h1>User Details</h1>
-            <div style={style} align="left">
+            <div style={{align:'left'}}>
+                <h1 style={{fontSize:80}}>User Details</h1>
 
+                <div style={style} >
+                    <h2>Name: <Label size='massive'>{user.name}</Label></h2>
+                </div>
+                <br></br>
+                <div style={style} >
+                    <h2>Surname: <Label size='massive'>{user.surname}</Label></h2>
+                </div>
+                <br></br>
+                <div style={style} >
+                    <h2>Username: <Label size='massive'>{user.username}</Label></h2>
+                </div>
+                <br></br>
+                <div style={style} >
+                    <h2>Email: <Label size='massive'>{user.email}</Label></h2>
+                </div>
+                <br></br>
+                <div style={style} >
+                    <h2>Phone: <Input size='tiny' placeholder='update phone...' onChange={this.updatePhone}></Input></h2>
+                </div>
+                <br></br>
+                <div style={style} >
+                    <h2 style={{fontSize:50}}>Skills:</h2>
+                    {(this.state.skills !== undefined && this.state.skills.length >0) ?
+                        <div>
+                            <List >
+                                {this.state.skills.map(skill => (
+                                    <List.Item><Label size='massive'>{skill}</Label></List.Item>
+                                ))}
+                            </List>
+                        </div> :
 
-            <h2>Name: {user.name}</h2>
-            <h2>Surname: {user.surname}</h2>
-            <h2>Username: {user.username}</h2>
-            <h2>Email: {user.email}</h2>
-            <h2>Phone: <Input size='tiny' placeholder='update phone...' onChange={this.updatePhone}/></h2>
+                        <p>No skills added yet</p>
+                    }
 
-            <h2>Skills: </h2>
+                </div>
+                <div style={{display: 'inline-block'}} >
+                    <Input size='big'
+                           style = {{border:'10px'}}
+                           placeholder='add skill...'
+                           onChange={this.updateSkills}
+                    />
+                    <Button onClick={this.addSkill} size='big'> Add Skill</Button>
 
-            {(this.state.skills !== undefined && this.state.skills.length >0) ?
-                <div>
-                    <List >
-                        {this.state.skills.map(skill => (
-                            <List.Item><h3>{skill}</h3></List.Item>
-                        ))}
-                    </List>
-                </div> :
+                </div>
 
-                <p>No skills added yet</p>
-            }
-                <Input size='mini'
-                       placeholder='add skill...'
-                       onChange={this.updateSkills}
-                />
-                <Button onClick={this.addSkill}>Add Skill</Button>
-        </div>
+                <div style={style}>
+                    <br></br>
+                    <Button size='huge' onClick={this.save}>Save Changes</Button>
+                </div>
 
-
-                <Button size='huge' onClick={this.save}>Save Changes</Button>
         </div>
 
         )

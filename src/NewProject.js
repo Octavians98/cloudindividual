@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {API} from 'aws-amplify';
 import {Link} from "react-router-dom";
-import {Divider, List, Input, Button, Form, TextArea} from "semantic-ui-react";
+import {Divider, List, Input, Button, Form, TextArea, Label} from "semantic-ui-react";
 import Auth from '@aws-amplify/auth';
 
 let userAPI = 'usersAPI';
@@ -23,6 +23,7 @@ class NewProject extends Component {
             contributors:[],
             status:'',
             description:'',
+            managerEmail:'',
             developer:''
 
         }
@@ -32,11 +33,12 @@ class NewProject extends Component {
 
 
 
-    componentDidMount(){
-        const user = Auth.currentAuthenticatedUser();
+    async componentDidMount(){
+        const user = await Auth.currentAuthenticatedUser();
+        console.log("Wtf is wrong with you",user)
         this.setState({manager:user.username,
         managerName:user.name,
-        manageSurname:user.surname,
+        managerEmail:user.email,
         status:'commencing'})
     }
 
@@ -48,8 +50,6 @@ class NewProject extends Component {
             this.setState({projectName:event.target.value})
         }
     }
-
-
 
     setDescription = (event) => {
         if(event.target.value ===''){
@@ -65,6 +65,8 @@ class NewProject extends Component {
     checkContributor = async () => {
         if(this.state.developer===''){
             alert('Developer username can\'t be empty')
+        }else if(this.state.contributors.includes(this.state.developer)){
+            alert('This developer is already working at this project')
         } else {
             const user = await API.get(userAPI,path+this.state.developer)
 
@@ -83,36 +85,73 @@ class NewProject extends Component {
 
 
     save = async () => {
-        if(this.state.projectName ==='' || this.state.description === ''){
+        const project = await API.get(projectAPI,projectPath+this.state.projectName)
+
+        if(project.hasOwnProperty("name")){
+              alert("Project name already in use");
+                console.log(project)}
+
+        else if(this.state.projectName ==='' || this.state.description === ''){
             alert("Please complete all necessary fields before saving")
         }else {
-            const apiCall = API.post(projectAPI, projectPath, {
-                body:{
-                    name:this.state.name,
-                    contributors: this.state.contributors,
+
+
+            const apiCall = await API.post(projectAPI, projectPath, {
+                body:
+                    {
+
+                    name:this.state.projectName,
                     managerID: this.state.manager,
-                    managerName: this.state.managerName,
-                    managerSurname: this.state.managerSurname,
                     status:this.state.status,
-                    description:this.state.description
+                    description:this.state.description,
+                    email:this.state.managerEmail
+
                 }
             } )
+
             alert('Project saved!')
         }
     }
 
     render(){
         return(
-            <div style={{padding: '15px'}} align="left">
+            <div>
                 <h1>Project Details</h1>
-                <h2>Project name*: <Input size='tiny' placeholder='Enter description' onChange={this.setName}/></h2>
-                <h2>Project description*:
-                    <Form>
-                    <TextArea placeholder='Tell us more' style={{ minHeight: 100 }} onChange={this.setDescription}/>
-                </Form></h2>
-                <h2>Add contributors <Input size='tiny' placeholder='Developer username' onChange={this.addContributor}/>
+
+                <div style={{padding: '15px', height:'50px', align:'left'}}>
+                    <h2>Project name*: <Input size='mini' placeholder='Enter description' onChange={this.setName}/>
+                    </h2>
+                </div>
+
+
+                <div style={{padding: '15px', height:'50px', align:'left', margin:'25px'}}>
+                    <h2>Project description*:
+                    <Form size='massive' style={{display: 'inline-block', align:'left' }}>
+                        <TextArea autoHeight placeholder='Tell us more'  onChange={this.setDescription}/>
+                    </Form>
                 </h2>
-                <Button onClick={this.checkContributor}>Add developer</Button>
+
+                   </div>
+                <br></br>
+                <div style={{padding: '15px', height:'50px', align:'left', display: 'inline-block',margin:'50px'}}>
+                    <h2>Add contributors: </h2>
+                        <Input size='big' placeholder='Developer username' onChange={this.addContributor}/>
+
+
+                    <List>{this.state.contributors.map(contributor => (
+                        <List.Item>
+                            <Label size='massive'>{contributor}</Label>
+
+                            </List.Item>
+                    ))}</List>
+                    <br></br>
+                </div>
+                <div>
+                    <Button onClick={this.checkContributor} size='big'>Add developer</Button>
+                    <Button onClick={this.save} size='big'>Save</Button>
+                </div>
+
+
 
 
             </div>

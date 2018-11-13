@@ -25,16 +25,15 @@ class Project extends Component {
 
 
         const response = await API.get(apiName,path + this.props.match.params.username);
-        // console.log("WTF IS HAPPENING IN THE PROJECTS", response);
-        if(response !== {}){
+               if(response !== {}){
             this.setState({project:response
             });
         }
-        // console.log("This project manger",this.state.project)
+
     }
 
     render() {
-        // console.log("Testerino",this.props.match.params)
+
         return(
 
             <div>

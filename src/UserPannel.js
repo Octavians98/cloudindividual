@@ -12,7 +12,7 @@ class UserPannel extends Component {
 
         };
         const user = this.props.user;
-        console.log("Why is this undefined",user.username)
+
         return(
 
     <div>

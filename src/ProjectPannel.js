@@ -1,24 +1,71 @@
 import React, {Component} from 'react';
+import {Label} from 'semantic-ui-react'
 
 
 
 class ProjectPannel extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            contributors:this.props.contributors,
+        }
+
+    }
 
 
     render() {
+        console.log("Muie pt toata lumea", this.state.contributors)
         const project = this.props.project;
         // console.log("Why is this undefined project",project.name)
         return(
-            <div>
-                <h1>Project Details</h1>
-                <h2>Project name: {project.name}</h2>
-                <h2>Manager name: {project.managerName}</h2>
-                <h2>Manager surname: {project.managerSurname}</h2>
-                <h2>Manager username: {project.managerID}</h2>
-                <h2>Contributors: {project.contributors}</h2>
-                <h2>Status: {project.status}</h2>
+            <div style={{align:'centre'}}>
 
-                <h1>O sa fac cancer foarte curand</h1>
+                <h1>Project Details</h1>
+                <div style={{align:'centre'}}>
+                    <Label size='massive'>
+                        Project name: {project.name}
+                    </Label>
+
+                </div>
+                <br></br>
+                <div style={{align:'centre'}}>
+                    <Label size='massive'>
+                        Manager name: {project.managerName}
+                    </Label>
+                </div>
+                <br></br>
+                <div style={{align:'centre'}}>
+                    <Label size='massive'>
+                        Manager surname: {project.managerSurname}
+                    </Label >
+                </div>
+                <br></br>
+                <div style={{align:'centre'}}>
+
+                    <Label size='massive'>
+                        Manager username: {project.managerID}
+                    </Label>
+                </div>
+                <br></br>
+                <div style={{align:'centre'}}>
+                    <Label size='massive'>
+                        Contributors: {project.contributors}
+                    </Label>
+                </div>
+
+                <div style={{align:'centre'}}>
+                    <Label size='massive'>
+                        Status: {project.status}
+                    </Label>
+                </div>
+
+
+
+
+
+
+
+
 
             </div>
         )

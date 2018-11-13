@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Auth from '@aws-amplify/auth';
 import Analytics from '@aws-amplify/analytics';
@@ -10,14 +9,12 @@ import awsconfig from './aws-exports';
 import {Route, Switch, Link} from 'react-router-dom'
 import UsersView from './UsersView';
 import User from './User';
-import UserPannel from './UserPannel'
+import Home from './Home';
 import ProjectsView from './ProjectsView'
 import Project from './Project'
-import {Container, Card,Input} from "semantic-ui-react";
-import { Button } from 'semantic-ui-react'
-// retrieve temporary AWS credentials and sign requests
+import { Menu } from 'semantic-ui-react'
+
 Auth.configure(awsconfig);
-// send analytics events to Amazon Pinpoint
 Analytics.configure(awsconfig);
 Amplify.configure(aws_exports);
 
@@ -25,18 +22,6 @@ let apiName = 'usersAPI';
 let path = '/users/';
 let projectAPI = 'projectsAPI';
 let projectPath = '/projects/'
-let myInit = {
-    body: {
-            name: 'Project test',
-            managerID:'Eminem',
-            managerName:"noname",
-            managerSurname:"nosurname",
-            description: 'best description eva',
-            contributors: ['cool','cooler','coolest'],
-            status: 'pending'
-
-    }
-}
 
 class App extends Component {
     constructor(props) {
@@ -52,12 +37,7 @@ class App extends Component {
 
 
         const loggedUser = await Auth.currentAuthenticatedUser();
-        // console.log("Hello there",loggedUser);
         const userEntry = await API.get(apiName,path + loggedUser.username);
-        // console.log("This user",JSON.stringify(userEntry));
-
-        // const projectPost =API.post(projectAPI,projectPath,myInit);
-        // console.log("Project post", JSON.stringify(projectPost));
 
         if (!userEntry.hasOwnProperty('username')){
             while(!this.state.user.hasOwnProperty('username')){
@@ -79,9 +59,6 @@ class App extends Component {
                 body:this.state.user
             });
 
-
-            // console.log("User updated",JSON.stringify(post));
-
         }else
         {
             this.setState({
@@ -89,13 +66,13 @@ class App extends Component {
             });
         }
 
-        // console.log("Current user" + JSON.stringify(this.state.user));
+
     }
 
-    testThisGet = async () => {
-        const response = await API.get(projectAPI,projectPath+"test");
-        // console.log(response);
-
+    signOut = () => {
+        Auth.signOut().then(() => {
+            this.props.onStateChange('SignedOut');
+        });
     }
 
   render() {
@@ -119,8 +96,16 @@ class App extends Component {
 
     return (
       <div className="App">
+          <Menu size='massive'inverted>
+              <Menu.Item content="Home"><Link to ="/">Home</Link></Menu.Item>
+              <Menu.Item content="Projects"><Link to ="/projects">Projects</Link></Menu.Item>
+              <Menu.Item content='Users'><Link to ="/users">Users</Link></Menu.Item>
+              <Menu.Item position='right' onClick={this.signOut}>Sign Out</Menu.Item>
 
+          </Menu>
+          {/*<NewProject></NewProject>*/}
           <Switch>
+              <Route exact path ='/' component = {Home}/>
               <Route path = "/users" component = {Users}></Route>
               <Route path = "/projects" component = {Projects}></Route>
           </Switch>
@@ -129,4 +114,4 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App, true);
+export default withAuthenticator(App);

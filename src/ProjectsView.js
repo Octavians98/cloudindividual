@@ -89,7 +89,7 @@ class ProjectsView extends Component {
                 <h2>Projects</h2>
 
                 <Container>
-                    <Table striped>
+                    <Table celled inverted>
 
                         <Table.Header>
                             <Table.Row>
