@@ -43,21 +43,14 @@ class ProjectsView extends Component {
 
                 console.log("Project",project.name);
                 console.log("Contributors weeeeeeeeew",project.contributors)
-                // console.log("Desciption",project.description);
-                // console.log("Status",project.status);
-                // console.log("Manager name",project.managerName);
-                // console.log("Manager surname",project.managerSurname);
-                // console.log("Manager ID",project.managerID);
+                
 
 
 
 
                 return project.name.includes(event.target.value)||
-                    project.contributors.includes(event.target.value) ||
                     project.description.includes(event.target.value) ||
                     project.status.includes(event.target.value) ||
-                    project.managerName.includes(event.target.value) ||
-                    project.managerSurname.includes(event.target.value) ||
                     project.managerID.includes(event.target.value);
             })
         });
