@@ -20,8 +20,7 @@ Amplify.configure(aws_exports);
 
 let apiName = 'usersAPI';
 let path = '/users/';
-let projectAPI = 'projectsAPI';
-let projectPath = '/projects/'
+
 
 class App extends Component {
     constructor(props) {
@@ -33,9 +32,6 @@ class App extends Component {
   }
 
     async componentDidMount(){
-
-
-
         const loggedUser = await Auth.currentAuthenticatedUser();
         const userEntry = await API.get(apiName,path + loggedUser.username);
 

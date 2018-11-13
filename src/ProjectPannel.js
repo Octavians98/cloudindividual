@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Label} from 'semantic-ui-react'
+import {Label, Button} from 'semantic-ui-react'
 
 
 
@@ -12,11 +12,13 @@ class ProjectPannel extends Component {
 
     }
 
+    requestJoin = () => {
+        alert("Request sent")
+    }
+
 
     render() {
-        console.log("Muie pt toata lumea", this.state.contributors)
         const project = this.props.project;
-        // console.log("Why is this undefined project",project.name)
         return(
             <div style={{align:'centre'}}>
 
@@ -52,12 +54,15 @@ class ProjectPannel extends Component {
                         Contributors: {project.contributors}
                     </Label>
                 </div>
-
+                <br></br>
                 <div style={{align:'centre'}}>
                     <Label size='massive'>
                         Status: {project.status}
                     </Label>
                 </div>
+                <br></br>
+                <Button onClick={this.requestJoin} size='massive'>Join Project</Button>
+
 
 
 

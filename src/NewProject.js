@@ -35,7 +35,6 @@ class NewProject extends Component {
 
     async componentDidMount(){
         const user = await Auth.currentAuthenticatedUser();
-        console.log("Wtf is wrong with you",user)
         this.setState({manager:user.username,
         managerName:user.name,
         managerEmail:user.email,
@@ -118,22 +117,22 @@ class NewProject extends Component {
             <div>
                 <h1>Project Details</h1>
 
-                <div style={{padding: '15px', height:'50px', align:'left'}}>
+                <div style={{ align:'centre'}}>
                     <h2>Project name*: <Input size='mini' placeholder='Enter description' onChange={this.setName}/>
                     </h2>
                 </div>
 
 
-                <div style={{padding: '15px', height:'50px', align:'left', margin:'25px'}}>
+                <div style={{align:'centre'}}>
                     <h2>Project description*:
-                    <Form size='massive' style={{display: 'inline-block', align:'left' }}>
+                    <Form size='massive' style={{align:'centre'}}>
                         <TextArea autoHeight placeholder='Tell us more'  onChange={this.setDescription}/>
                     </Form>
                 </h2>
 
                    </div>
                 <br></br>
-                <div style={{padding: '15px', height:'50px', align:'left', display: 'inline-block',margin:'50px'}}>
+                <div style={{align:'centre'}}>
                     <h2>Add contributors: </h2>
                         <Input size='big' placeholder='Developer username' onChange={this.addContributor}/>
 
@@ -146,7 +145,7 @@ class NewProject extends Component {
                     ))}</List>
                     <br></br>
                 </div>
-                <div>
+                <div style={{align:'centre'}}>
                     <Button onClick={this.checkContributor} size='big'>Add developer</Button>
                     <Button onClick={this.save} size='big'>Save</Button>
                 </div>
