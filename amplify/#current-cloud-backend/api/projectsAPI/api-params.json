@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/projects",
+            "lambdaFunction": "projectsAPICall",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "projectsAPI",
+    "apiName": "myappeb120d9a",
+    "functionArns": [
+        {
+            "lambdaFunction": "projectsAPICall"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "myapp-20181108164424-authRole",
+        "unAuthRoleName": "myapp-20181108164424-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "projectsAPICall",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
