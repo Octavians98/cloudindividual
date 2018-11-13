@@ -57,19 +57,6 @@ class ProjectsView extends Component {
 
     }
 
-    joinProject = async () => {
-        const loggedUser = await Auth.currentAuthenticatedUser();
-        console.log("Poate nu merge ", loggedUser);
-        console.log("Super cancer",this.state.sortedList)
-       // if(this.state.sortedList.contributors.includes(loggedUser.username)){
-       //     alert("You've already joined this project");
-       // }else
-       // {
-       //     this.state.sortedList.contributors.push(loggedUser.username);
-       //
-       // }
-}
-
     render(){
         return (
             <div>
